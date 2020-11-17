@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  sam_app:
+    build:
+      context: ./sam_app
+      args:
+        - HOME
+        - USER
+        - UID
+    user: "${UID}:100"
+    command: ["$PWD"]
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./sam_app:$HOME
+      - /var/run/docker.sock:/var/run/docker.sock
