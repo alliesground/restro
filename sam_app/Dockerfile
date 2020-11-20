@@ -4,6 +4,8 @@ RUN apk update && \
     apk upgrade && \
     apk add bash && \
     apk add --no-cache --virtual build-deps build-base gcc && \
+    apk add postgresql-dev && \
+    apk add postgresql-client && \
     pip install aws-sam-cli && \
     apk del build-deps
 
