@@ -30,10 +30,19 @@ def lambda_handler(event:, context:)
   # end
 
 
+  conn = PG.connect(dbname: 'restro', user:'restro', host:'db', port: 5432, password: '')
+  # names = conn.exec( "SELECT count(*) from items" ) do |result|
+  #   result.each do |row|
+  #     row.values_at('name')
+  #   end
+  # end
+
+  res = conn.exec( "SELECT count(*) from items" )
+
   {
     statusCode: 200,
     body: {
-      message: "Hello Restroers world, happy to be back",
+      message: "Hello Cruel world #{res[0]['count']}",
       # location: response.body
     }.to_json
   }
