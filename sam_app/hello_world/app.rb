@@ -1,4 +1,5 @@
 # require 'httparty'
+require 'pg'
 require 'json'
 
 def lambda_handler(event:, context:)
@@ -28,10 +29,11 @@ def lambda_handler(event:, context:)
   #   raise error
   # end
 
+
   {
     statusCode: 200,
     body: {
-      message: "Hello Restroers",
+      message: "Hello Restroers world, happy to be back",
       # location: response.body
     }.to_json
   }

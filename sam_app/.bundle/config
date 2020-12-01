@@ -1,0 +1,4 @@
+---
+BUNDLE_DEPLOYMENT: "false"
+BUNDLE_PATH: "vendor/bundle/"
+BUNDLE_BUILD__PG: "--with-pg-config=/usr/bin/pg_config"

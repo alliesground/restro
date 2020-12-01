@@ -1,13 +1,31 @@
-FROM python:alpine
+# FROM python:alpine
 
-RUN apk update && \
-    apk upgrade && \
-    apk add bash && \
-    apk add --no-cache --virtual build-deps build-base gcc && \
-    apk add postgresql-dev && \
-    apk add postgresql-client && \
-    pip install aws-sam-cli && \
-    apk del build-deps
+# RUN apk update && \
+#     apk upgrade && \
+#     apk add bash && \
+#     apk add --no-cache --virtual build-deps build-base gcc musl-dev && \
+#     apk add postgresql-dev && \
+#     apk add postgresql-client && \
+#     apk add libc-dev && \
+#     pip install aws-sam-cli && \
+#     apk add ruby && \
+#     apk add ruby-dev && \
+#     apk add ruby-bundler && \
+#     apk add util-linux && \
+#     apk del build-deps
+
+FROM ruby:2.7.0-alpine
+
+RUN apk add --update --no-cache \
+    build-base \
+    postgresql-dev \
+    postgresql-client \
+    python3 \
+    py3-pip \
+    util-linux \
+    python3-dev
+
+RUN pip3 install aws-sam-cli
 
 ARG USER
 ARG HOME
