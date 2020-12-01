@@ -8,6 +8,11 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
+    Environment:
+      Variables:
+        POSTGRES_DB: 'restro'
+        POSTGRES_USER: 'restro'
+        POSTGRES_HOST: 'db'
     Timeout: 3
 
 Resources:
