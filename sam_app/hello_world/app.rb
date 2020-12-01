@@ -35,12 +35,6 @@ def lambda_handler(event:, context:)
                     port: 5432, 
                     password: '')
 
-  # names = conn.exec( "SELECT count(*) from items" ) do |result|
-  #   result.each do |row|
-  #     row.values_at('name')
-  #   end
-  # end
-
   res = conn.exec( "SELECT count(*) from items" )
 
   {
