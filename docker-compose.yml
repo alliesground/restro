@@ -26,5 +26,16 @@ services:
       - restro-db:/var/lib/postgresql/data
     restart: always
 
+  client_app:
+    build: ./client_app
+    volumes: 
+      - ./client_app:/app
+    ports:
+      - "3000:3000"
+    command: npm start
+    depends_on:
+      - sam_app
+      - db
+
 volumes:
   restro-db:
