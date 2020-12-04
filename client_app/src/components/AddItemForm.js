@@ -20,9 +20,14 @@ const AddItemForm = () => {
   const handleImageUpload = (e) => {}
 
   const handleSubmit = () => {
-    // adding items locally, not persisted in database
-    setItems(items.concat(item))
-    alert("Successfully added new item")
+    if(item.name) {
+      // adding items locally, not persisted in database
+      setItems(items.concat(item))
+      alert("Successfully added new item")
+    } 
+    else {
+      alert("Name cannot be empty")
+    }
   }
 
   return(
