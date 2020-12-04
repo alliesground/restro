@@ -5,7 +5,6 @@ const AddItemForm = () => {
   const [items, setItems] = useState([])
 
   const [item, setItem] = useState({
-    id: 1,
     name: '',
     description: '',
     price: ''
@@ -20,11 +19,22 @@ const AddItemForm = () => {
 
   const handleImageUpload = (e) => {}
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
+    // adding items locally, not persisted in database
+    setItems(items.concat(item))
+    alert("Successfully added new item")
   }
 
   return(
     <div>
+      <ul>
+        {
+          items.map((item, idx) => (
+            <li key={idx}>{item.name}</li>
+          ))
+        }
+      </ul>
+
       <h1>Add Item Form</h1>
 
       <form>
