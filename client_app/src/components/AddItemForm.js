@@ -19,10 +19,21 @@ const AddItemForm = () => {
 
   const handleImageUpload = (e) => {}
 
-  const handleSubmit = () => {
+  const resetForm = () => {
+    setItem({
+      name: '',
+      description: '',
+      price: ''
+    })
+  }
+
+  const handleSubmit = (e) => {
     if(item.name) {
       // adding items locally, not persisted in database
       setItems(items.concat(item))
+
+      resetForm()
+
       alert("Successfully added new item")
     } 
     else {
@@ -48,6 +59,7 @@ const AddItemForm = () => {
           name="name"
           placeholder="Enter name"
           onChange={handleItemChange}
+          value={item.name}
         >
         </input>
 
@@ -58,6 +70,7 @@ const AddItemForm = () => {
           name="description"
           placeholder="Enter description"
           onChange={handleItemChange}
+          value={item.description}
         >
         </textarea>
 
@@ -69,6 +82,7 @@ const AddItemForm = () => {
           name="price"
           placeholder="Enter price"
           onChange={handleItemChange}
+          value={item.price}
         >
         </input>
 
