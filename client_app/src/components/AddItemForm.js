@@ -10,6 +10,23 @@ const AddItemForm = () => {
     price: ''
   });
 
+  const resetForm = () => {
+    setItem({
+      name: '',
+      description: '',
+      price: ''
+    })
+  }
+
+  const isValid = () => {
+
+    return(
+      item.name !== "" && 
+      item.description !== "" &&
+      item.price !== ""
+    )
+  }
+
   const handleItemChange = (e) => {
     setItem({
       ...item,
@@ -19,16 +36,10 @@ const AddItemForm = () => {
 
   const handleImageUpload = (e) => {}
 
-  const resetForm = () => {
-    setItem({
-      name: '',
-      description: '',
-      price: ''
-    })
-  }
-
   const handleSubmit = (e) => {
-    if(item.name) {
+
+    if(isValid()) {
+
       // adding items locally, not persisted in database
       setItems(items.concat(item))
 
@@ -37,7 +48,7 @@ const AddItemForm = () => {
       alert("Successfully added new item")
     } 
     else {
-      alert("Name cannot be empty")
+      alert("Fields cannot be empty")
     }
   }
 
