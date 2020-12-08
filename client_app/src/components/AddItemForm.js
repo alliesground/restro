@@ -10,6 +10,8 @@ const AddItemForm = () => {
     price: ''
   });
 
+  const [errors, setErrors] = useState({})
+
   const resetForm = () => {
     setItem({
       name: '',
@@ -18,13 +20,28 @@ const AddItemForm = () => {
     })
   }
 
-  const isValid = () => {
+  const isValidForm = () => {
 
-    return(
-      item.name !== "" && 
-      item.description !== "" &&
-      item.price !== ""
-    )
+    setErrors({})
+
+    let isValid = true
+
+    if(!item.name) {
+      isValid = false
+      setErrors(prevErrors => ({...prevErrors, 'name': 'cannot be blank'}))
+    }
+
+    if(!item.description) {
+      isValid = false
+      setErrors(prevErrors => ({...prevErrors, 'description': 'cannot be blank'}))
+    }
+
+    if(!item.price) {
+      isValid = false
+      setErrors(prevErrors => ({...prevErrors, 'price': 'cannot be blank'}))
+    }
+
+    return isValid;
   }
 
   const handleItemChange = (e) => {
@@ -38,7 +55,7 @@ const AddItemForm = () => {
 
   const handleSubmit = (e) => {
 
-    if(isValid()) {
+    if(isValidForm()) {
 
       // adding items locally, not persisted in database
       setItems(items.concat(item))
@@ -47,13 +64,22 @@ const AddItemForm = () => {
 
       alert("Successfully added new item")
     } 
-    else {
-      alert("Fields cannot be empty")
-    }
   }
+
+  const errorList = Object.entries(errors)
 
   return(
     <div>
+      <ul>
+        {
+          errorList.map((err, idx) => (
+            <li key={idx}>
+              {err[0]}: {err[1]}
+            </li>
+          ))
+        }
+      </ul>
+
       <ul>
         {
           items.map((item, idx) => (
