@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
+import useFormValidation from '../hooks/useFormValidation';
 
 const AddItemForm = () => {
 
+  const initialState = {
+    name: "",
+    description: "",
+    price: ""
+  }
+
   const [items, setItems] = useState([])
 
-  const [item, setItem] = useState({
-    name: '',
-    description: '',
-    price: ''
-  });
+  const [item, setItem] = useState(initialState);
 
-  const [errors, setErrors] = useState({})
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const resetForm = () => {
     setItem({
@@ -18,30 +21,6 @@ const AddItemForm = () => {
       description: '',
       price: ''
     })
-  }
-
-  const isValidForm = () => {
-
-    setErrors({})
-
-    let isValid = true
-
-    if(!item.name) {
-      isValid = false
-      setErrors(prevErrors => ({...prevErrors, 'name': 'cannot be blank'}))
-    }
-
-    if(!item.description) {
-      isValid = false
-      setErrors(prevErrors => ({...prevErrors, 'description': 'cannot be blank'}))
-    }
-
-    if(!item.price) {
-      isValid = false
-      setErrors(prevErrors => ({...prevErrors, 'price': 'cannot be blank'}))
-    }
-
-    return isValid;
   }
 
   const handleItemChange = (e) => {
@@ -53,17 +32,24 @@ const AddItemForm = () => {
 
   const handleImageUpload = (e) => {}
 
+  const submitForm = () => {
+
+    // adding items locally, not persisted in database
+    setItems(items.concat(item))
+
+    resetForm()
+
+    alert("Successfully added new item")
+  }
+
+  const {
+    handlePresenceValidation,
+    errors
+  } = useFormValidation(submitForm, isSubmitted)
+
   const handleSubmit = (e) => {
-
-    if(isValidForm()) {
-
-      // adding items locally, not persisted in database
-      setItems(items.concat(item))
-
-      resetForm()
-
-      alert("Successfully added new item")
-    } 
+    setIsSubmitted(true)
+    handlePresenceValidation({...item});
   }
 
   const errorList = Object.entries(errors)
